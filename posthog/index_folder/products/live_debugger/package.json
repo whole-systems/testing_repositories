@@ -1,0 +1,20 @@
+{
+    "name": "@posthog/products-live-debugger",
+    "peerDependencies": {
+        "@posthog/icons": "*",
+        "@posthog/lemon-ui": "*",
+        "@types/react": "*",
+        "@types/react-dom": "*",
+        "clsx": "*",
+        "kea": "*",
+        "kea-loaders": "*",
+        "react": "*",
+        "react-dom": "*"
+    },
+    "dependencies": {
+        "fuse.js": "catalog:"
+    },
+    "devDependencies": {
+        "kea-test-utils": "catalog:"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "@posthog/products-revenue-analytics",
+    "dependencies": {
+        "kea": "catalog:",
+        "kea-forms": "catalog:",
+        "kea-loaders": "catalog:",
+        "kea-router": "catalog:"
+    },
+    "peerDependencies": {
+        "@posthog/icons": "*",
+        "@storybook/react": "*",
+        "@types/react": "*",
+        "clsx": "*",
+        "react": "*"
+    }
+}
