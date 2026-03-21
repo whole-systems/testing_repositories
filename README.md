@@ -1,1 +1,1 @@
-# testing_repositories
+# Testing Respotiory for AI Testing functionality
