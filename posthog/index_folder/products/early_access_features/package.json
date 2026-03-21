@@ -1,0 +1,17 @@
+{
+    "name": "@posthog/products-early-access-features",
+    "dependencies": {
+        "kea": "catalog:",
+        "kea-forms": "catalog:",
+        "kea-loaders": "catalog:",
+        "kea-router": "catalog:",
+        "kea-subscriptions": "catalog:"
+    },
+    "peerDependencies": {
+        "@posthog/icons": "*",
+        "@storybook/react": "*",
+        "@types/react": "*",
+        "clsx": "*",
+        "react": "*"
+    }
+}

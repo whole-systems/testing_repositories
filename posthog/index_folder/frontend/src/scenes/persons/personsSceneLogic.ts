@@ -1,0 +1,108 @@
+import equal from 'fast-deep-equal'
+import { actions, kea, listeners, path, reducers, selectors } from 'kea'
+
+import { lemonToast } from '@posthog/lemon-ui'
+
+import api from 'lib/api'
+import { tabAwareActionToUrl } from 'lib/logic/scenes/tabAwareActionToUrl'
+import { tabAwareScene } from 'lib/logic/scenes/tabAwareScene'
+import { tabAwareUrlToAction } from 'lib/logic/scenes/tabAwareUrlToAction'
+import { Scene } from 'scenes/sceneTypes'
+import { sceneConfigurations } from 'scenes/scenes'
+import { urls } from 'scenes/urls'
+
+import { defaultDataTableColumns } from '~/queries/nodes/DataTable/utils'
+import { DataTableNode, NodeKind, ProductKey } from '~/queries/schema/schema-general'
+import { Breadcrumb } from '~/types'
+
+import type { personsSceneLogicType } from './personsSceneLogicType'
+
+export const PEOPLE_LIST_CONTEXT_KEY = 'people-list'
+
+export const PEOPLE_LIST_DEFAULT_QUERY = {
+    kind: NodeKind.DataTableNode,
+    source: {
+        kind: NodeKind.ActorsQuery,
+        tags: { productKey: ProductKey.CUSTOMER_ANALYTICS },
+        select: [...defaultDataTableColumns(NodeKind.ActorsQuery), 'person.$delete'],
+    },
+    full: true,
+    propertiesViaUrl: true,
+    contextKey: PEOPLE_LIST_CONTEXT_KEY,
+} as DataTableNode
+
+export const personsSceneLogic = kea<personsSceneLogicType>([
+    path(['scenes', 'persons', 'personsSceneLogic']),
+    tabAwareScene(),
+
+    actions({
+        setQuery: (query: DataTableNode) => ({ query }),
+        resetDeletedDistinctId: (distinct_id: string) => ({ distinct_id }),
+        setShowDisplayNameNudge: (showDisplayNameNudge: boolean) => ({ showDisplayNameNudge }),
+        setIsBannerLoading: (isBannerLoading: boolean) => ({ isBannerLoading }),
+    }),
+
+    reducers({
+        query: [PEOPLE_LIST_DEFAULT_QUERY, { setQuery: (_, { query }) => query }],
+        showDisplayNameNudge: [
+            false,
+            {
+                setShowDisplayNameNudge: (_, { showDisplayNameNudge }) => showDisplayNameNudge,
+            },
+        ],
+        isBannerLoading: [
+            false,
+            {
+                setIsBannerLoading: (_, { isBannerLoading }) => isBannerLoading,
+            },
+        ],
+    }),
+
+    listeners({
+        resetDeletedDistinctId: async ({ distinct_id }) => {
+            await api.persons.resetPersonDistinctId(distinct_id)
+            lemonToast.success('Distinct ID reset. It may take a few minutes to process.')
+        },
+    }),
+
+    selectors({
+        breadcrumbs: [
+            () => [],
+            (): Breadcrumb[] => [
+                {
+                    key: 'persons',
+                    name: sceneConfigurations[Scene.Persons].name,
+                    iconType: sceneConfigurations[Scene.Persons].iconType || 'default_icon_type',
+                },
+            ],
+        ],
+    }),
+
+    tabAwareActionToUrl(({ values }) => ({
+        setQuery: () => [
+            urls.persons(),
+            {},
+            equal(values.query, PEOPLE_LIST_DEFAULT_QUERY) ? {} : { q: values.query },
+            { replace: true },
+        ],
+    })),
+
+    tabAwareUrlToAction(({ actions, values }) => ({
+        [urls.persons()]: (_, __, { q: queryParam }): void => {
+            if (!equal(queryParam, values.query)) {
+                // nothing in the URL
+                if (!queryParam) {
+                    // We set the query again so that the actionToUrl for setQuery can run, which updates the url
+                    actions.setQuery(values.query)
+                } else {
+                    if (typeof queryParam === 'object') {
+                        actions.setQuery(queryParam)
+                    } else {
+                        lemonToast.error('Invalid query in URL')
+                        console.error({ queryParam })
+                    }
+                }
+            }
+        },
+    })),
+])
