@@ -1,0 +1,15 @@
+{
+    "name": "@posthog/products-user-interviews",
+    "dependencies": {
+        "kea": "catalog:",
+        "kea-loaders": "catalog:",
+        "kea-router": "catalog:",
+        "posthog-js": "1.345.4"
+    },
+    "peerDependencies": {
+        "@posthog/icons": "*",
+        "@types/react": "*",
+        "clsx": "*",
+        "react": "*"
+    }
+}
