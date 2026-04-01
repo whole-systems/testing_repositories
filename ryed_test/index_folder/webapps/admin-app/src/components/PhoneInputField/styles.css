@@ -1,0 +1,31 @@
+.phone-input > input {
+  background-color: transparent;
+  flex: 1;
+}
+
+.phone-input > input:-webkit-autofill,
+.phone-input > input:-webkit-autofill:hover,
+.phone-input > input:-webkit-autofill:focus,
+.phone-input > input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #020817;
+}
+
+.phone-input > input:focus {
+  outline: none;
+}
+
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  background-color: #020817;
+}

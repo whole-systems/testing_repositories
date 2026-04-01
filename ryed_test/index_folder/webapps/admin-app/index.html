@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ryed Admin</title>
+    <link rel="stylesheet" href="https://d1z5asrzu7fukt.cloudfront.net/latest/style.css" />
+    <script src="https://d1z5asrzu7fukt.cloudfront.net/latest/chat.umd.cjs"></script>
+    <script>
+      const chat = new Chat({
+        publicKey: "1fce35f45550e5542a3f704750d7d820221e9bfd0bc03fcd0568004ebfd73362"
+      });
+      chat.init();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

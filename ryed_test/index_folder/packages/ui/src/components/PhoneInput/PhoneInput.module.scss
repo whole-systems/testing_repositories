@@ -1,0 +1,56 @@
+.flagCenter {
+  :global(.selected-flag) {
+    padding: 0 !important;
+
+    @apply flex items-center justify-center;
+  }
+}
+
+.hiddenArrow {
+  :global(.arrow) {
+    display: none;
+  }
+}
+
+.searchInput {
+  @apply py-4 px-0;
+
+  input {
+    margin-left: 0 !important;
+    outline: none;
+    @apply p-0 border border-input h-6 focus-within:ring-ring focus-within:ring-1 rounded-md w-[96%] ml-0;
+  }
+}
+
+.flagContainer {
+  :global(.selected-flag) {
+    @apply hover:bg-accent;
+
+    &:global(.open) {
+      @apply bg-accent !important;
+    }
+  }
+}
+
+.dropdown {
+  @apply bg-background text-secondary-foreground !important;
+
+  li {
+    &:hover {
+      @apply bg-accent text-black !important;
+      @apply text-secondary-foreground !important;
+
+      :global(.dial-code) {
+        @apply text-secondary-foreground !important;
+      }
+    }
+
+    :global(.dial-code) {
+      @apply text-secondary-foreground !important;
+    }
+
+    &:global(.highlight) {
+      @apply bg-accent text-secondary-foreground !important;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "lib": ["es2017", "dom"],
+    "paths": {
+      "@ryed-ui/*": ["src/*"]
+    },
+    "types": ["google.maps"],
+    /* AND if you're building for a library: */
+    "declaration": true,
+
+    /* AND if you're building for a library in a monorepo: */
+    //    "composite": true,
+    "declarationMap": true,
+
+    "moduleResolution": "node",
+
+    "allowSyntheticDefaultImports": true,
+
+    "allowJs": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"]
+  },
+  "include": ["src", "src/types/index.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

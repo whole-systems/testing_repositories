@@ -1,0 +1,4 @@
+export const SERVICES_TYPES = {
+  BRING_WITH: 'BRING_WITH',
+  AIRPORT: 'AIRPORT',
+};
